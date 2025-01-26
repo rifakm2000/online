@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f9ff;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            left: 0;
+            padding-top: 80px;
+        }
+
+        .sidebar .profile {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .profile img {
+            width: 80px;
+            border-radius: 50%;
+        }
+
+        .sidebar .profile h3 {
+            margin: 10px 0 5px;
+        }
+
+        .menu {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #2b2b2b;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background-color: #f0f5ff;
+            border-left-color: #4a90e2;
+        }
+
+        .menu-item .icon {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #2b2b2b;
+        }
+
+        .complaints-section {
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .complaint-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .complaint-item:last-child {
+            border-bottom: none;
+        }
+
+        .complaint-item h3 {
+            margin: 0 0 5px;
+            font-size: 18px;
+        }
+
+        .complaint-item p {
+            margin: 0 0 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .reply-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .reply-form textarea {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            width: 100%;
+        }
+
+        .reply-form button {
+            padding: 8px 12px;
+            font-size: 14px;
+            background-color: #4a90e2;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .reply-form button:hover {
+            background-color: #367ecf;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <img src="admin.png" alt="Profile Picture">
+            <h3>Admin</h3>
+        </div>
+        <div class="menu">
+            <a href="#" class="menu-item active">
+                <span class="icon"><i class="fas fa-exclamation-circle"></i></span>Complaints
+            </a>
+            <a href="#" id="logout" class="menu-item">
+                <span class="icon"><i class="fas fa-sign-out-alt"></i></span>Logout
+            </a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="navbar">
+            <h2>Complaints</h2>
+        </div>
+
+        <div class="complaints-section">
+            <!-- Complaint Item 1 -->
+            <div class="complaint-item">
+                <h3>Complaint #1</h3>
+                <p><strong>From:</strong> User123</p>
+                <p><strong>Message:</strong> Unable to access my account. Please assist.</p>
+                <form class="reply-form" action="send_reply.php" method="POST">
+                    <textarea name="reply" rows="3" placeholder="Write your reply here..." required></textarea>
+                    <button type="submit">Send Reply</button>
+                </form>
+            </div>
+
+            <!-- Complaint Item 2 -->
+            <div class="complaint-item">
+                <h3>Complaint #2</h3>
+                <p><strong>From:</strong> User456</p>
+                <p><strong>Message:</strong> Payment not processed. Need urgent help.</p>
+                <form class="reply-form" action="send_reply.php" method="POST">
+                    <textarea name="reply" rows="3" placeholder="Write your reply here..." required></textarea>
+                    <button type="submit">Send Reply</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('logout').addEventListener('click', function (e) {
+            e.preventDefault();
+            const confirmLogout = confirm("Are you sure you want to logout?");
+            if (confirmLogout) {
+                window.location.href = "home.html";
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Exam Creation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f9ff;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            left: 0;
+            padding-top: 80px;
+            transition: 0.3s ease;
+        }
+
+        .sidebar .profile {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .profile img {
+            width: 80px;
+            border-radius: 50%;
+        }
+
+        .sidebar .profile h3 {
+            margin: 10px 0 5px;
+        }
+
+        .sidebar .profile p {
+            margin: 0;
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+
+        .menu {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #2b2b2b;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background-color: #f0f5ff;
+            border-left-color: #4a90e2;
+        }
+
+        .menu-item svg {
+            margin-right: 10px;
+        }
+
+        .menu-item .icon {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #2b2b2b;
+        }
+
+        .form-section {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2b2b2b;
+        }
+
+        .form-section label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #2b2b2b;
+        }
+
+        .form-section input,
+        .form-section textarea,
+        .form-section select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-section button {
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-section button:hover {
+            background-color: #357abd;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <img src="https://via.placeholder.com/80" alt="Profile Picture">
+            <h3>Teacher</h3>
+            <p>( Dashboard )</p>
+        </div>
+        <div class="menu">
+            <a href="trdash.html" class="menu-item">
+                <span class="icon"><i class="fas fa-tachometer-alt"></i></span>Dashboard
+            </a>
+            <a href="tr_createxm.html" class="menu-item active">
+                <span class="icon"><i class="fas fa-pencil-alt"></i></span>Create Exam
+            </a>
+            <a href="tr_result.html" class="menu-item">
+                <span class="icon"><i class="fas fa-chart-bar"></i></span>Results
+            </a>
+            <a href="tr_feedback.html" class="menu-item">
+                <span class="icon"><i class="fas fa-comments"></i></span>Feedback
+            </a>
+            <a href="#" id="logout" class="menu-item">
+                <span class="icon"><i class="fas fa-sign-out-alt"></i></span><span class="text">Logout</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="navbar">
+            <h2>Create Exam</h2>
+        </div>
+
+        <div class="form-section">
+            <h3>Exam Details</h3>
+            <form id="exam-form">
+                <label for="exam-title">Exam Title</label>
+                <input type="text" id="exam-title" name="exam-title" placeholder="Enter exam title" required>
+
+                <label for="exam-type">Exam Type</label>
+                <select id="exam-type" name="exam-type">
+                    <option value="">Select Type</option>
+                    <option value="subjective">Subjective</option>
+                    <option value="objective">Objective</option>
+                </select>
+
+                <div id="objective-fields" class="hidden">
+                    <label for="questions">Add Question</label>
+                    <textarea id="questions" name="questions" rows="4" placeholder="Enter question text here"></textarea>
+
+                    <label for="options">Options</label>
+                    <textarea id="options" name="options" rows="3" placeholder="Enter options, press Enter for each"></textarea>
+
+                    <label for="correct-answer">Correct Answer</label>
+                    <input type="text" id="correct-answer" name="correct-answer" placeholder="Enter the correct answer">
+                </div>
+
+                <div id="subjective-fields" class="hidden">
+                    <label for="subj-questions">Add Question</label>
+                    <textarea id="subj-questions" name="subj-questions" rows="4" placeholder="Enter question text here"></textarea>
+                </div>
+
+                <div class="form-footer">
+                    <button type="button" id="add-question">Add</button>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const examType = document.getElementById("exam-type");
+        const objectiveFields = document.getElementById("objective-fields");
+        const subjectiveFields = document.getElementById("subjective-fields");
+
+        examType.addEventListener("change", () => {
+            const type = examType.value;
+            if (type === "objective") {
+                objectiveFields.classList.remove("hidden");
+                subjectiveFields.classList.add("hidden");
+            } else if (type === "subjective") {
+                subjectiveFields.classList.remove("hidden");
+                objectiveFields.classList.add("hidden");
+            } else {
+                objectiveFields.classList.add("hidden");
+                subjectiveFields.classList.add("hidden");
+            }
+        });
+
+        document.getElementById('logout').addEventListener('click', function (e) {
+            e.preventDefault();
+            const confirmLogout = confirm("Are you sure you want to logout?");
+            if (confirmLogout) {
+                window.location.href = "home.html";
+            }
+        });
+    </script>
+</body>
+
+</html>

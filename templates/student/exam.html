@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f9ff;
+        }
+        
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #2b2b2b;
+        }
+
+        .exam-item {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            margin-left: 1px;
+        }
+
+        .exam-item h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
+            color: #2b2b2b;
+        }
+
+        .exam-item p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #6b6b6b;
+        }
+
+        .exam-item button {
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .exam-item button:hover {
+            background-color: #357ab8;
+        }
+
+        .webcam-container {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            margin-bottom: 15px;
+        }
+
+        #webcam {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 320px;
+            height: 240px;
+            margin-bottom: 10px;
+        }
+
+        #submit-btn {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 320px;
+        }
+
+        #submit-btn:hover {
+            background-color: #218838;
+        }
+
+        #start-exam-btn:disabled {
+            background-color: #d3d3d3;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="navbar">
+            <h2>Exams</h2>
+        </div>
+
+        <div class="exam-item">
+            <h3>Mathematics Final Exam</h3>
+            <p>Date: 2025-01-15</p>
+            <p>Time: 10:00 AM - 12:00 PM</p>
+            <p>Duration: 2 hours</p>
+            <p>Instructions: Closed book, no external resources allowed.</p>
+
+            <div class="webcam-container">
+                <video id="webcam" autoplay></video>
+                <button id="submit-btn">Capture and Submit</button>
+            </div>
+
+            <button id="start-exam-btn" disabled onclick="startExam()">Start Exam</button>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('webcam');
+        const submitBtn = document.getElementById('submit-btn');
+        const startExamBtn = document.getElementById('start-exam-btn');
+
+        // Access the user's webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((error) => {
+                console.error("Error accessing webcam: ", error);
+            });
+
+        // Capture and submit the picture
+        submitBtn.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Convert canvas to data URL
+            const imageData = canvas.toDataURL('image/png');
+
+            // Submit the image to the server (mock example)
+            console.log("Captured image data:", imageData);
+
+            alert('Picture captured and submitted!');
+
+            // Enable the Start Exam button
+            startExamBtn.disabled = false;
+        });
+
+        function startExam() {
+            alert("Exam started!");
+            // Redirect to exam page logic here
+            window.location.href = 'questions.html';
+        }
+    </script>
+</body>
+
+</html>
